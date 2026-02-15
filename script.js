@@ -4,7 +4,7 @@ function toggleMode(){
 }
 
 // ------------------- عرض اسم المستخدم في الصفحة الرئيسية -------------------
-window.onload = function(){
+function showUser() {
   const user = JSON.parse(localStorage.getItem('user'));
   if(user){
     const welcome = document.getElementById('welcome');
@@ -13,8 +13,6 @@ window.onload = function(){
       ${user.picture ? `<img src="${user.picture}" width="50" style="border-radius:50%;">` : ""}`;
     }
   }
-  loadComments();
-  typeWriter(); // بدء تأثير الكتابة عند تحميل الصفحة
 }
 
 // ------------------- التعليقات -------------------
@@ -159,3 +157,10 @@ function eraseText() {
     setTimeout(typeWriter, typingSpeed);
   }
 }
+
+// ------------------- بدء كل شيء بعد تحميل الصفحة -------------------
+document.addEventListener("DOMContentLoaded", function() {
+  showUser();
+  loadComments();
+  typeWriter();
+});
