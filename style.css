@@ -1,91 +1,165 @@
+/* ------------------------------ */
+/* الأساسيات                     */
+/* ------------------------------ */
 body{
-margin:0;
-font-family:Arial;
-background-image:url("bg.jpg");
-background-size:cover;
-background-attachment:fixed;
-color:white;
+  margin:0;
+  font-family:Arial, sans-serif;
+  background-image:url("bg.jpg");
+  background-size:cover;
+  background-attachment:fixed;
+  color:white;
 }
 
-/* شريط التنقل */
+/* ------------------------------ */
+/* شريط التنقل                    */
+/* ------------------------------ */
 nav{
-background:#000000aa;
-padding:15px;
-text-align:center;
+  background:#000000aa;
+  padding:15px;
+  text-align:center;
 }
 
 nav a{
-color:white;
-margin:15px;
-text-decoration:none;
-font-size:18px;
+  color:white;
+  margin:15px;
+  text-decoration:none;
+  font-size:18px;
 }
 
 button{
-padding:8px 15px;
-border:none;
-border-radius:8px;
-cursor:pointer;
+  padding:8px 15px;
+  border:none;
+  border-radius:8px;
+  cursor:pointer;
+  font-size:16px;
 }
 
-/* الحاوية */
+/* ------------------------------ */
+/* الحاوية العامة                  */
+/* ------------------------------ */
 .container{
-text-align:center;
-padding:40px;
+  text-align:center;
+  padding:40px;
 }
 
-/* الصورة الشخصية */
+/* ------------------------------ */
+/* الصورة الشخصية                 */
+/* ------------------------------ */
 .profile{
-width:150px;
-border-radius:50%;
-border:3px solid cyan;
+  width:150px;
+  border-radius:50%;
+  border:3px solid cyan;
 
-/* حركة ناعمة */
-animation: float 3s ease-in-out infinite,
-glow 2s ease-in-out infinite alternate;
+  /* حركة ناعمة */
+  animation: float 3s ease-in-out infinite,
+             glow 2s ease-in-out infinite alternate;
 }
 
 /* حركة الطفو */
 @keyframes float {
-0%{
-transform: translateY(0px);
-}
-50%{
-transform: translateY(-10px);
-}
-100%{
-transform: translateY(0px);
-}
+  0%{ transform: translateY(0px); }
+  50%{ transform: translateY(-10px); }
+  100%{ transform: translateY(0px); }
 }
 
 /* تأثير الإضاءة */
 @keyframes glow {
-from{
-box-shadow: 0 0 10px cyan;
-}
-to{
-box-shadow: 0 0 25px cyan;
-}
+  from{ box-shadow: 0 0 10px cyan; }
+  to{ box-shadow: 0 0 25px cyan; }
 }
 
-/* البطاقات */
-.card{
-background:#000000aa;
-margin:15px;
-padding:20px;
-border-radius:12px;
+/* ------------------------------ */
+/* البطاقات والتعليقات             */
+/* ------------------------------ */
+.card, .comment{
+  background:#000000aa;
+  margin:15px;
+  padding:20px;
+  border-radius:12px;
 }
 
-/* التعليقات */
-.comment{
-background:#000000aa;
-margin:15px;
-padding:15px;
-border-radius:12px;
+/* ------------------------------ */
+/* التعليقات                     */
+/* ------------------------------ */
+.comment button{
+  margin-right:5px;
+  margin-top:5px;
 }
 
-/* الوضع الفاتح */
+/* ------------------------------ */
+/* الوضع الفاتح                   */
+/* ------------------------------ */
 .light{
-background:white !important;
-color:black;
+  background:white !important;
+  color:black;
+}
+
+/* ------------------------------ */
+/* تصميم متجاوب للأجهزة الصغيرة  */
+/* ------------------------------ */
+@media screen and (max-width: 768px){
+  
+  body {
+    font-size:16px;
+    padding:0 10px;
+  }
+
+  nav {
+    padding:10px;
+    text-align:center;
+  }
+
+  nav a {
+    display:block;
+    margin:8px 0;
+    font-size:16px;
+  }
+
+  .container {
+    padding:20px;
+  }
+
+  .profile {
+    width:100px; /* تصغير الصورة */
+  }
+
+  .card, .comment {
+    padding:15px;
+    margin:10px 0;
+  }
+
+  textarea {
+    font-size:14px;
+  }
+
+  button {
+    padding:6px 12px;
+    font-size:14px;
+  }
+}
+
+/* للأجهزة اللوحية */
+@media screen and (min-width: 769px) and (max-width: 1024px){
+  .profile {
+    width:120px;
+  }
+
+  .container {
+    padding:30px;
+  }
+}
+
+/* الهواتف الصغيرة جدًا */
+@media screen and (max-width: 480px){
+  .profile {
+    position:relative; /* بدل absolute */
+    top:0;
+    left:0;
+    margin-bottom:10px;
+  }
+
+  nav button {
+    padding:5px 8px;
+    font-size:14px;
+  }
 }
