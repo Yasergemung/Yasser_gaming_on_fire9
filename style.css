@@ -37,10 +37,35 @@ padding:40px;
 /* الصورة الشخصية */
 .profile{
 width:150px;
-height:150px;
 border-radius:50%;
-object-fit:cover;
-border:4px solid cyan;
+border:3px solid cyan;
+
+/* حركة ناعمة */
+animation: float 3s ease-in-out infinite,
+glow 2s ease-in-out infinite alternate;
+}
+
+/* حركة الطفو */
+@keyframes float {
+0%{
+transform: translateY(0px);
+}
+50%{
+transform: translateY(-10px);
+}
+100%{
+transform: translateY(0px);
+}
+}
+
+/* تأثير الإضاءة */
+@keyframes glow {
+from{
+box-shadow: 0 0 10px cyan;
+}
+to{
+box-shadow: 0 0 25px cyan;
+}
 }
 
 /* البطاقات */
