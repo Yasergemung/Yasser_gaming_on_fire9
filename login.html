@@ -18,7 +18,8 @@
 
 <!-- زر تسجيل الدخول بجوجل -->
 <div style="margin-top:20px">
-<button onclick="googleLogin()" style="padding:10px 20px; border:none; border-radius:8px; background:#4285F4; color:white;">
+<button onclick="googleLogin()" 
+style="padding:10px 20px; border:none; border-radius:8px; background:#4285F4; color:white; font-size:16px;">
 تسجيل الدخول باستخدام Google
 </button>
 </div>
@@ -31,7 +32,8 @@
 <script src="https://accounts.google.com/gsi/client" async defer></script>
 
 <script>
-function googleLogin() {
+
+function googleLogin(){
 
 google.accounts.id.initialize({
 client_id: "891455424218-lgrnlsb7tivgotdpdas9b5hft9kct3lv.apps.googleusercontent.com",
@@ -42,7 +44,7 @@ google.accounts.id.prompt();
 
 }
 
-function handleCredentialResponse(response) {
+function handleCredentialResponse(response){
 
 alert("تم تسجيل الدخول بجوجل ✅");
 
@@ -51,6 +53,7 @@ localStorage.setItem("role","user");
 window.location="index.html";
 
 }
+
 </script>
 
 </body>
