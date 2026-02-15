@@ -1,39 +1,50 @@
-// الوضع المظلم / الفاتح
+/* الوضع الليلي */
 function toggleMode(){
+
   if(document.body.classList.contains("dark")){
     document.body.classList.remove("dark");
     document.body.classList.add("light");
-  } else {
+  }
+  else{
     document.body.classList.remove("light");
     document.body.classList.add("dark");
   }
+
 }
 
-// عرض اسم المستخدم بعد تسجيل الدخول
-function showUser() {
-  const user = JSON.parse(localStorage.getItem('user'));
+/* عرض المستخدم */
+function showUser(){
+
+  const user = JSON.parse(localStorage.getItem("user"));
+
   if(user){
-    const welcome = document.getElementById('welcome');
+    const welcome = document.getElementById("welcome");
+
     if(welcome){
-      welcome.innerHTML = `<h2>أهلاً ${user.name} 👋</h2>
-      ${user.picture ? `<img src="${user.picture}" width="50" style="border-radius:50%;">` : ""}`;
+      welcome.innerHTML =
+      `<h2>أهلاً ${user.name} 👋</h2>`;
     }
   }
+
 }
 
-// التعليقات
-let comments = JSON.parse(localStorage.getItem('comments')) || [];
+/* التعليقات */
+let comments = JSON.parse(localStorage.getItem("comments")) || [];
 
 function saveComments(){
-  localStorage.setItem('comments', JSON.stringify(comments));
+  localStorage.setItem("comments", JSON.stringify(comments));
 }
 
 function showComments(){
-  const container = document.getElementById('commentsContainer');
+
+  const container = document.getElementById("commentsContainer");
   if(!container) return;
-  container.innerHTML = "";
+
+  container.innerHTML="";
+
   comments.forEach((c,index)=>{
-    container.innerHTML += `
+
+    container.innerHTML+=`
       <div class="comment">
         <strong>${c.name}</strong>
         <p>${c.text}</p>
@@ -41,132 +52,126 @@ function showComments(){
         <button onclick="deleteComment(${index})">🗑️</button>
       </div>
     `;
+
   });
+
 }
 
 function addComment(){
-  const textEl = document.getElementById("text");
-  if(!textEl) return alert("خطأ: لم يتم العثور على مربع التعليق");
-  const text = textEl.value.trim();
-  if(!text) return alert("الرجاء كتابة تعليق!");
 
-  const user = JSON.parse(localStorage.getItem('user'));
+  const text = document.getElementById("text").value.trim();
+  if(!text) return alert("اكتب تعليق");
+
+  const user = JSON.parse(localStorage.getItem("user"));
   const name = user ? user.name : "زائر";
 
   comments.push({name,text,likes:0});
+
   saveComments();
   showComments();
-  textEl.value = "";
+
+  document.getElementById("text").value="";
+
 }
 
 function likeComment(index){
+
   comments[index].likes++;
   saveComments();
   showComments();
+
 }
 
 function deleteComment(index){
+
   const role = localStorage.getItem("role");
-  if(role === "admin"){
+
+  if(role==="admin"){
     comments.splice(index,1);
     saveComments();
     showComments();
-  } else {
-    alert("فقط المالك يمكنه حذف التعليقات!");
   }
+  else{
+    alert("فقط المالك يستطيع حذف التعليق");
+  }
+
 }
 
-function loadComments(){
-  showComments();
-}
-
-// تسجيل دخول Google
-function googleLogin(){
-  google.accounts.id.initialize({
-    client_id: "891455424218-lgrnlsb7tivgotdpdas9b5hft9kct3lv.apps.googleusercontent.com",
-    callback: handleCredentialResponse
-  });
-  google.accounts.id.prompt();
-}
-
-function handleCredentialResponse(response){
-  const base64Url = response.credential.split('.')[1];
-  const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-  const jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c){
-    return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-  }).join(''));
-
-  const user = JSON.parse(jsonPayload);
-  localStorage.setItem('user', JSON.stringify(user));
-  localStorage.setItem('role','user');
-
-  alert("تم تسجيل الدخول بجوجل بنجاح ✅");
-  window.location="index.html";
-}
-
-// تسجيل دخول عادي للمالك
+/* تسجيل دخول عادي */
 function login(){
-  let user=document.getElementById("user")?.value;
-  let pass=document.getElementById("pass")?.value;
+
+  let user=document.getElementById("user").value;
+  let pass=document.getElementById("pass").value;
 
   if(user==="yasser" && pass==="1234"){
     localStorage.setItem("role","admin");
-    window.location="dashboard.html";
+    window.location="index.html";
     return;
   }
 
   if(user && pass){
     localStorage.setItem("role","user");
-    localStorage.setItem("user", JSON.stringify({name:user,picture:""}));
+    localStorage.setItem("user",JSON.stringify({name:user}));
     window.location="index.html";
   }
+
 }
 
-// نصوص متغيرة typing effect
-const texts = [
-  "أنا صانع محتوى ألعاب 🎮",
-  "متفوق في ماين كرافت ومصنف عالميًا رقم 338",
-  "بدأت صناعة المحتوى منذ 2016",
-  "أقدم فيديوهات وبثوث ممتعة!"
+/* النص المتغير */
+const texts=[
+"أنا صانع محتوى ألعاب 🎮",
+"متفوق في ماين كرافت ومصنف عالميًا 338",
+"بدأت صناعة المحتوى منذ 2016",
+"أقدم فيديوهات وبثوث ممتعة"
 ];
 
-let currentText = 0;
-let charIndex = 0;
-let typingSpeed = 100; 
-let erasingSpeed = 50; 
-let delayBetweenTexts = 1500; 
+let currentText=0;
+let charIndex=0;
 
-function typeWriter() {
-  const element = document.getElementById("typed-text");
+function typeWriter(){
+
+  const element=document.getElementById("typed-text");
   if(!element) return;
 
-  if(charIndex < texts[currentText].length) {
+  if(charIndex < texts[currentText].length){
+
     element.textContent += texts[currentText].charAt(charIndex);
     charIndex++;
-    setTimeout(typeWriter, typingSpeed);
-  } else {
-    setTimeout(eraseText, delayBetweenTexts);
+
+    setTimeout(typeWriter,100);
+
   }
+  else{
+    setTimeout(eraseText,1500);
+  }
+
 }
 
-function eraseText() {
-  const element = document.getElementById("typed-text");
-  if(!element) return;
+function eraseText(){
 
-  if(charIndex > 0) {
-    element.textContent = texts[currentText].substring(0, charIndex-1);
+  const element=document.getElementById("typed-text");
+
+  if(charIndex > 0){
+
+    element.textContent =
+    texts[currentText].substring(0,charIndex-1);
+
     charIndex--;
-    setTimeout(eraseText, erasingSpeed);
-  } else {
-    currentText++;
-    if(currentText >= texts.length) currentText = 0;
-    setTimeout(typeWriter, typingSpeed);
+
+    setTimeout(eraseText,50);
   }
+  else{
+
+    currentText++;
+    if(currentText >= texts.length) currentText=0;
+
+    setTimeout(typeWriter,100);
+  }
+
 }
 
-// بدء كل شيء بعد تحميل الصفحة
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded",()=>{
   showUser();
-  loadComments();
+  showComments();
   typeWriter();
 });
