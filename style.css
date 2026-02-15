@@ -13,8 +13,14 @@ body{
 
 /* الوضع الفاتح */
 body.light{
-  background: white !important;
+  background-image: url("bg.jpg");
   color: black;
+}
+
+/* الوضع الليلي */
+body.dark{
+  background-image: url("bg-dark.jpg");
+  color: white;
 }
 
 /* ------------------------------ */
