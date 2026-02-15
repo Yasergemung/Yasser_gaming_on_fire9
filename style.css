@@ -1,24 +1,21 @@
-/* إعدادات عامة للجسم والخطوط */
 body{
   margin:0;
-  font-family: Arial, sans-serif;
-  background-image: url("bg.jpg");
-  background-size: cover;
-  background-attachment: fixed;
-  color: white;
-  transition: background 0.5s, color 0.5s;
+  font-family:Arial;
+  background-size:cover;
+  background-attachment:fixed;
+  transition: background 0.5s , color 0.5s;
 }
 
-/* الوضع الفاتح */
+/* الخلفية العادية */
 body.light{
-  background-image: url("bg.jpg");
-  color: black;
+  background-image:url("bg.jpg");
+  color:white;
 }
 
-/* الوضع الليلي */
+/* الخلفية الليلية */
 body.dark{
-  background-image: url("bg-dark.jpg");
-  color: white;
+  background-image:url("bg-dark.jpg");
+  color:black;
 }
 
 /* شريط التنقل */
@@ -29,20 +26,27 @@ nav{
 }
 
 nav a{
-  color:white;
   margin:15px;
   text-decoration:none;
   font-size:18px;
 }
 
-nav button{
+body.light nav a{
+  color:white;
+}
+
+body.dark nav a{
+  color:black;
+}
+
+button{
   padding:8px 15px;
   border:none;
   border-radius:8px;
   cursor:pointer;
 }
 
-/* الحاوية الرئيسية */
+/* الحاوية */
 .container{
   text-align:center;
   padding:40px;
@@ -57,15 +61,16 @@ nav button{
              glow 2s ease-in-out infinite alternate;
 }
 
-@keyframes float {
-  0%{ transform: translateY(0px); }
-  50%{ transform: translateY(-10px); }
-  100%{ transform: translateY(0px); }
+/* حركة الصورة */
+@keyframes float{
+  0%{transform:translateY(0px);}
+  50%{transform:translateY(-10px);}
+  100%{transform:translateY(0px);}
 }
 
-@keyframes glow {
-  from{ box-shadow: 0 0 10px cyan; }
-  to{ box-shadow: 0 0 25px cyan; }
+@keyframes glow{
+  from{box-shadow:0 0 10px cyan;}
+  to{box-shadow:0 0 25px cyan;}
 }
 
 /* البطاقات */
@@ -87,66 +92,45 @@ nav button{
 .comment button{
   margin-top:5px;
   margin-right:5px;
-  cursor:pointer;
   border:none;
   padding:5px 10px;
   border-radius:5px;
-  background: cyan;
+  background:cyan;
   color:black;
-  transition: transform 0.2s;
-}
-
-.comment button:hover{
-  transform: scale(1.1);
-}
-
-/* قائمة الروابط مع أيقونات */
-.links-list {
-  list-style: none;
-  padding: 0;
-}
-
-.links-list li {
-  margin: 15px 0;
-  font-size: 20px;
-}
-
-.links-list li a {
-  text-decoration: none;
-  color: white;
-  display: flex;
-  align-items: center;
-  transition: color 0.3s;
-}
-
-.links-list li a i {
-  margin-right: 10px;
-  font-size: 24px;
-  color: cyan;
-  transition: transform 0.3s;
-}
-
-.links-list li a:hover i {
-  transform: scale(1.2);
-}
-
-.links-list li a:hover{
-  color: cyan;
 }
 
 /* النص المتغير */
 #typed-text{
-  font-size: 22px;
-  color: cyan;
-  min-height: 30px;
-  margin: 10px 0 20px 0;
+  font-size:22px;
+  min-height:30px;
 }
 
-/* متجاوب للهاتف */
-@media screen and (max-width: 768px){
-  .container{
-    padding:20px;
-  }
+/* الروابط */
+.links-list{
+  list-style:none;
+  padding:0;
+}
+
+.links-list li{
+  margin:15px 0;
+  font-size:20px;
+}
+
+.links-list li a{
+  text-decoration:none;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+
+.links-list li a i{
+  margin-right:10px;
+  font-size:24px;
+  color:cyan;
+}
+
+/* متجاوب للموبايل */
+@media screen and (max-width:768px){
 
   nav a{
     margin:10px 5px;
@@ -155,15 +139,6 @@ nav button{
 
   .profile{
     width:120px;
-  }
-
-  .links-list li{
-    font-size:18px;
-  }
-
-  .links-list li a i{
-    font-size:20px;
-    margin-right:8px;
   }
 
   #typed-text{
