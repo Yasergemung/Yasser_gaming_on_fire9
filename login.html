@@ -1,23 +1,80 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>تسجيل الدخول</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #1a1a1a, #0a0a0a);
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  .container {
+    background: rgba(0,0,0,0.8);
+    padding: 40px;
+    border-radius: 15px;
+    text-align: center;
+    width: 300px;
+  }
+  h1 { margin-bottom: 20px; color: #00ffff; }
+  input {
+    width: 100%;
+    padding: 10px;
+    margin: 8px 0;
+    border-radius: 8px;
+    border: none;
+  }
+  button {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 10px;
+    margin-top: 10px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  #googleSignIn {
+    background: linear-gradient(45deg, #4285F4, #34A853, #FBBC05, #EA4335);
+    color: #fff;
+    font-weight: bold;
+  }
+  #googleSignIn:hover { opacity: 0.9; }
+</style>
+</head>
+
+<body>
+
+<div class="container">
+  <h1>تسجيل الدخول</h1>
+
+  <!-- تسجيل دخول تقليدي -->
+  <input id="user" placeholder="اسم المستخدم">
+  <input id="pass" type="password" placeholder="كلمة المرور">
+  <button onclick="login()">دخول</button>
+
+  <hr style="margin:20px 0; border-color:cyan;">
+
+  <!-- زر تسجيل الدخول بجوجل -->
+  <button id="googleSignIn">تسجيل الدخول باستخدام Google</button>
+</div>
+
+<!-- سكربت Google OAuth -->
 <script src="https://accounts.google.com/gsi/client" async defer></script>
 <script>
-  // ------------------- تهيئة Google OAuth مرة واحدة -------------------
-  let googleInitialized = false;
-  window.onload = () => {
-    google.accounts.id.initialize({
-      client_id: "891455424218-lgrnlsb7tivgotdpdas9b5hft9kct3lv.apps.googleusercontent.com",
-      callback: handleCredentialResponse
-    });
-    googleInitialized = true;
-  };
+  // ------------------- تهيئة Google OAuth -------------------
+  google.accounts.id.initialize({
+    client_id: "891455424218-lgrnlsb7tivgotdpdas9b5hft9kct3lv.apps.googleusercontent.com",
+    callback: handleCredentialResponse
+  });
 
-  // ------------------- تسجيل دخول Google -------------------
-  function googleLogin() {
-    if(!googleInitialized){
-      alert("جاري تهيئة Google، حاول مرة ثانية بعد قليل");
-      return;
-    }
-    google.accounts.id.prompt(); // يظهر نافذة تسجيل الدخول
-  }
+  document.getElementById("googleSignIn").onclick = () => {
+    google.accounts.id.prompt();
+  };
 
   function handleCredentialResponse(response){
     const base64Url = response.credential.split('.')[1];
@@ -32,7 +89,7 @@
     localStorage.setItem('role','user');
 
     alert("تم تسجيل الدخول بجوجل بنجاح ✅");
-    window.location = "index.html";
+    window.location = "./"; // ينقل على الصفحة الرئيسية بشكل صحيح
   }
 
   // ------------------- تسجيل دخول تقليدي -------------------
@@ -42,14 +99,17 @@
 
     if(user==="yasser" && pass==="1234"){
       localStorage.setItem("role","admin");
-      window.location="dashboard.html";
+      window.location="./dashboard.html";
       return;
     }
 
     if(user && pass){
       localStorage.setItem("role","user");
       localStorage.setItem("user", JSON.stringify({name:user,picture:""}));
-      window.location="index.html";
+      window.location="./";
     }
   }
 </script>
+
+</body>
+</html>
