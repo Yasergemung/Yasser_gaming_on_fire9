@@ -4,13 +4,12 @@
 <meta charset="UTF-8">
 <title>التعليقات</title>
 <style>
-  /* الخلفية */
+  /* الخلفية ديناميكية */
   body { 
     font-family: 'Arial', sans-serif; 
     padding:20px; 
-    background: url('https://i.ibb.co/5Fq5Y2Z/gaming-bg.jpg') no-repeat center center fixed; 
-    background-size: cover; 
     color:#fff; 
+    transition: background 0.3s;
   }
 
   /* صندوق التعليقات */
@@ -97,11 +96,24 @@
 <div id="comments"></div>
 
 <script>
-  // بيانات المستخدم و الدور
+  // ----------- ضبط الخلفية حسب اختيار المستخدم ----------
+  // نفترض أن هناك إعداد محفوظ في LocalStorage باسم "theme"
+  // قيمة "light" → bg.html
+  // قيمة "dark" → bg-black.html
+  const theme = localStorage.getItem("theme") || "light";
+
+  if(theme === "light"){
+    document.body.style.background = "url('bg.html') no-repeat center center fixed";
+    document.body.style.backgroundSize = "cover";
+  } else if(theme === "dark"){
+    document.body.style.background = "url('bg-black.html') no-repeat center center fixed";
+    document.body.style.backgroundSize = "cover";
+  }
+
+  // ----------- بيانات المستخدم والدور ----------
   const currentUser = JSON.parse(localStorage.getItem("user") || '{}');
   const role = localStorage.getItem("role") || 'user';
 
-  // تحميل التعليقات من LocalStorage
   let comments = JSON.parse(localStorage.getItem("comments") || '[]');
   const commentsDiv = document.getElementById("comments");
 
@@ -112,7 +124,7 @@
       div.className = 'comment';
       div.innerHTML = `<strong>${c.name}:</strong> ${c.text}`;
 
-      // زر مسح يظهر فقط للـ Admin
+      // زر المسح يظهر فقط للـ Admin
       if(role === 'admin'){
         const btn = document.createElement("button");
         btn.className = 'delete-btn';
