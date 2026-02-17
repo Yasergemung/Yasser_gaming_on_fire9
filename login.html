@@ -67,54 +67,55 @@
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-app.js";
   import { getAuth, signInWithPopup, GoogleAuthProvider } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-auth.js";
 
-  // Firebase config
-  const firebaseConfig = {
-    apiKey: "AIzaSyCqFKV3EhAGIkSYTuSste28u44gk0fjjRg",
-    authDomain: "yasser-gaming-site.firebaseapp.com",
-    projectId: "yasser-gaming-site",
-  };
+  document.addEventListener("DOMContentLoaded", () => {
+    // Firebase config
+    const firebaseConfig = {
+      apiKey: "AIzaSyCqFKV3EhAGIkSYTuSste28u44gk0fjjRg",
+      authDomain: "yasser-gaming-site.firebaseapp.com",
+      projectId: "yasser-gaming-site",
+    };
 
-  // Initialize Firebase
-  const app = initializeApp(firebaseConfig);
-  const auth = getAuth(app);
-  const provider = new GoogleAuthProvider();
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const provider = new GoogleAuthProvider();
 
-  // ------------------- تسجيل دخول Google -------------------
-  document.getElementById("googleSignIn").onclick = () => {
-    signInWithPopup(auth, provider)
-      .then((result) => {
-        const user = result.user;
-        alert("تم تسجيل الدخول باسم: " + user.displayName);
-        localStorage.setItem("user", JSON.stringify({
-          name: user.displayName,
-          email: user.email,
-          photo: user.photoURL
-        }));
-        localStorage.setItem("role","user"); // دور المستخدم عادي
-        window.location = "./"; // الصفحة الرئيسية
-      })
-      .catch((error) => {
-        console.error(error);
-        alert("فشل تسجيل الدخول: " + error.message);
-      });
-  };
+    // ------------------- تسجيل دخول Google -------------------
+    document.getElementById("googleSignIn").addEventListener("click", () => {
+      signInWithPopup(auth, provider)
+        .then((result) => {
+          const user = result.user;
+          alert("تم تسجيل الدخول باسم: " + user.displayName);
+          localStorage.setItem("user", JSON.stringify({
+            name: user.displayName,
+            email: user.email,
+            photo: user.photoURL
+          }));
+          localStorage.setItem("role","user"); // دور المستخدم عادي
+          window.location = "./"; // الصفحة الرئيسية
+        })
+        .catch((error) => {
+          console.error(error);
+          alert("فشل تسجيل الدخول: " + error.message);
+        });
+    });
 
-  // ------------------- تسجيل دخول المالك -------------------
-  const adminBtn = document.getElementById("adminLoginBtn");
+    // ------------------- تسجيل دخول المالك -------------------
+    const adminBtn = document.getElementById("adminLoginBtn");
+    adminBtn.addEventListener("click", () => {
+      const user = document.getElementById("adminUser").value.trim();
+      const pass = document.getElementById("adminPass").value.trim();
 
-  adminBtn.addEventListener("click", () => {
-    const user = document.getElementById("adminUser").value.trim();
-    const pass = document.getElementById("adminPass").value.trim();
+      if(user === "yasser" && pass === "1234"){
+        localStorage.setItem("role","admin");
+        localStorage.setItem("user", JSON.stringify({name:"yasser"}));
+        alert("تم تسجيل دخول المالك ✅");
+        window.location = "./dashboard.html"; // صفحة خاصة بالمالك
+        return;
+      }
 
-    if(user === "yasser" && pass === "1234"){
-      localStorage.setItem("role","admin");
-      localStorage.setItem("user", JSON.stringify({name:"yasser"}));
-      alert("تم تسجيل دخول المالك ✅");
-      window.location = "./dashboard.html"; // صفحة خاصة بالمالك
-      return;
-    }
-
-    alert("بيانات الدخول غير صحيحة");
+      alert("بيانات الدخول غير صحيحة");
+    });
   });
 </script>
 
