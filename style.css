@@ -230,7 +230,14 @@ button:hover{
 .product:hover{
   transform:translateY(-8px) scale(1.03);
 }
+/* خلفية صفحة المنتجات */
 
+.products-page{
+  background-image:url("gaming-bg.jpg");
+  background-size:cover;
+  background-attachment:fixed;
+  background-position:center;
+}
 .product img{
   width:100%;
   border-radius:10px;
