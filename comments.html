@@ -96,10 +96,7 @@
 <div id="comments"></div>
 
 <script>
-  // ----------- ضبط الخلفية حسب اختيار المستخدم ----------
-  // نفترض أن هناك إعداد محفوظ في LocalStorage باسم "theme"
-  // قيمة "light" → bg.html
-  // قيمة "dark" → bg-black.html
+  // ---------- ضبط الخلفية حسب  ----------
   const theme = localStorage.getItem("theme") || "light";
 
   if(theme === "light"){
